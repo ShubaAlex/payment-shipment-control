@@ -47,9 +47,11 @@ Every evening at 18:00 tomorrow's deliveries are checked: is each invoice fully 
 
 ## Seal Helper
 
-| Incoming payments | Daily summary | Unresolved in chats |
-|---|---|---|
-| ![](docs/tg_incoming.png) | ![](docs/tg_day.png) | ![](docs/tg_note.png) |
+<p>
+<img src="docs/tg_incoming.png" width="32%" alt="Incoming payments">
+<img src="docs/tg_day.png" width="32%" alt="Daily summary">
+<img src="docs/tg_note.png" width="32%" alt="Unresolved in chats">
+</p>
 
 A bank webhook is only a signal to fetch the statement; the bot then posts who paid how much for which invoice and sends one summary per day. An LLM reads the day's work chats and extracts issues nobody answered, each with "Not important / Done / Remind later / Pass to a colleague / Show the thread" buttons. Works in Telegram or Max.
 
