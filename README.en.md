@@ -7,7 +7,7 @@ Two internal services of an online flooring store that take manual money reconci
 - **Payment service** turns supplier invoices into payment orders without manual entry and checks every day the client payments that managers record in their sheets against statements of three bank accounts, shop cash desks, deliveries and 1C (a Russian ERP). Before shipping it is clear whether an invoice is fully paid, and if not, where the gap is.
 - **Seal Helper** is the team bot: it reports incoming payments, sends a daily money summary and finds unresolved issues in work chats every evening.
 
-> **This is a project description.** The production code is private (bank integrations, company data). This repository contains a standalone payment-matching module ([`src/paymatch`](src/paymatch)) with tests and a demo day on fictional data. All companies, clients and amounts in the images are made up.
+> **This is a project description.** The production code is private (bank integrations, company data). This repository contains a standalone payment-matching module ([`src/paymatch`](src/paymatch)) with tests and a demo day on fictional data.
 
 ## Results
 
@@ -15,7 +15,7 @@ Two internal services of an online flooring store that take manual money reconci
 |---|---|
 | **₽800k** | of payment discrepancies caught before shipment |
 | **~40 payment orders a day** | created and sent automatically |
-| **up to 1 hour a day** | of manual reconciliation no longer done by the accountant |
+| **up to 2 hours a day** | of manual reconciliation no longer done by the accountant |
 
 ## Architecture
 
@@ -29,9 +29,13 @@ For each payment in a manager's sheet the service looks for confirmation step by
 
 ![One day of statements](docs/statement_day.png)
 
+*(fictional data)*
+
 Card acquiring arrives as one daily sum covering several invoices. Brute force over 30 payments is a billion combinations, so the module uses meet-in-the-middle: sums of two halves (32,768 each) and binary search. If a sum can be composed in more than one way, the service does not guess — it asks for a manual check.
 
 ![Acquiring](docs/acquiring.png)
+
+*(fictional data)*
 
 ## Supplier payment orders
 
@@ -45,6 +49,8 @@ Every evening at 18:00 tomorrow's deliveries are checked: is each invoice fully 
 
 ![Report](docs/tg_report.png)
 
+*(fictional data)*
+
 ## Seal Helper
 
 <p>
@@ -52,6 +58,8 @@ Every evening at 18:00 tomorrow's deliveries are checked: is each invoice fully 
 <img src="docs/tg_day.png" width="32%" alt="Daily summary">
 <img src="docs/tg_note.png" width="32%" alt="Unresolved in chats">
 </p>
+
+*(fictional data)*
 
 A bank webhook is only a signal to fetch the statement; the bot then posts who paid how much for which invoice and sends one summary per day. An LLM reads the day's work chats and extracts issues nobody answered, each with "Not important / Done / Remind later / Pass to a colleague / Show the thread" buttons. Works in Telegram or Max.
 
